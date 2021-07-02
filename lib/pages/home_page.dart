@@ -1,4 +1,6 @@
+import 'package:adaptive_layout/adaptive_layout.dart';
 import 'package:flutter/material.dart';
+
 import '../model/movie.dart';
 import 'movie_detail_page.dart';
 
@@ -10,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Movie? _selectedMovie;
+
   @override
   Widget build(BuildContext context) {
     final movies = Movie.getList();
@@ -18,14 +22,43 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Movies'),
       ),
-      body: MovieListView(
-        movies: movies,
-        onTapItem: (Movie movie) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MovieDetailPage(movie)),
-          );
-        },
+      body: AdaptiveLayout(
+        smallLayout: MovieListView(
+          movies: movies,
+          onTapItem: (Movie movie) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MovieDetailPage(movie)),
+            );
+          },
+        ),
+        largeLayout: Row(
+          children: [
+            Expanded(
+              child: MovieListView(
+                movies: movies,
+                onTapItem: (Movie movie) {
+                  setState(() {
+                    _selectedMovie = movie;
+                  });
+                },
+              ),
+            ),
+            Expanded(
+              child: Container(
+                child: _selectedMovie == null
+                    ? Center(
+                        child: Text(
+                          'Select a movie from the list on the left to see the details here.',
+                        ),
+                      )
+                    : MovieDetailView(
+                        _selectedMovie!,
+                      ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
