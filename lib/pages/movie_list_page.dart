@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/movie.dart';
+import 'movie_detail_page.dart';
 
 class MovieListPage extends StatelessWidget {
   const MovieListPage({Key? key}) : super(key: key);
@@ -15,7 +16,10 @@ class MovieListPage extends StatelessWidget {
       body: MovieListView(
         movies: movies,
         onTapItem: (Movie movie) {
-          // TODO: Navigate to detail screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MovieDetailPage(movie)),
+          );
         },
       ),
     );
