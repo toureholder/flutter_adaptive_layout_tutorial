@@ -1,5 +1,6 @@
 import 'package:adaptive_layout/adaptive_layout.dart';
 import 'package:flutter/material.dart';
+import '../shared/github_icon_button.dart';
 
 import '../model/movie.dart';
 import 'movie_detail_page.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Movies'),
+        actions: [GitHubIconButton()],
       ),
       body: AdaptiveLayout(
         smallLayout: MovieListView(

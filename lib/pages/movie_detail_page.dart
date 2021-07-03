@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_layout_tutorial/shared/github_icon_button.dart';
 import '../model/movie.dart';
 
 class MovieDetailPage extends StatelessWidget {
@@ -12,7 +13,9 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [GitHubIconButton()],
+      ),
       body: MovieDetailView(movie),
     );
   }
